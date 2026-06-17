@@ -43,6 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbsztraktÁllapot.cs" />
+    <Compile Include="BackTrack.cs" />
+    <Compile Include="Csúcs.cs" />
+    <Compile Include="GráfKereső.cs" />
+    <Compile Include="KorongÁllapot.cs" />
+    <Compile Include="MélységiKeresés.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

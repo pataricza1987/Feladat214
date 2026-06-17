@@ -10,6 +10,13 @@ namespace Feladat214
     {
         static void Main(string[] args)
         {
+            Csúcs startCsúcs = new Csúcs(new KorongÁllapot());
+
+            //GráfKereső kereső = new MélységiKeresés(startCsúcs, true);
+            GráfKereső kereső = new BackTrack(startCsúcs, 10, true);
+            kereső.megoldásKiírása(kereső.Keresés());
+
+            Console.ReadLine();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Feladat214
         private const bool PIROS = false;
         private const bool KEK = true;
 
-        private bool[][] CEL_ALLAPOT = {
+        private static readonly bool[][] CEL_ALLAPOT = {
             new[] { PIROS, PIROS, PIROS, PIROS },
             new[] { PIROS, KEK,   KEK,   PIROS },
             new[] { PIROS, KEK,   KEK,   PIROS },
@@ -65,46 +65,79 @@ namespace Feladat214
 
         public override int OperátorokSzáma()
         {
-            return 8;
+            return 16;
         }
 
         public override bool SzuperOperátor(int i)
         {
+            bool eredmeny;
+
             switch (i) {
-                case 0: return ForgatSor(0);
-                case 1: return ForgatSor(1);
-                case 2: return ForgatSor(2);
-                case 3: return ForgatSor(3);
-                
-                case 4: return ForgatOszlop(0);
-                case 5: return ForgatOszlop(1);
-                case 6: return ForgatOszlop(2);
-                case 7: return ForgatOszlop(3);
+                case 0: eredmeny = ForgatSor(0); break;
+                case 1: eredmeny = ForgatSor(1); break;
+                case 2: eredmeny = ForgatSor(2); break;
+                case 3: eredmeny = ForgatSor(3); break;
+
+                case 4: eredmeny = ForgatOszlop(0); break;
+                case 5: eredmeny = ForgatOszlop(1); break;
+                case 6: eredmeny = ForgatOszlop(2); break;
+                case 7: eredmeny = ForgatOszlop(3); break;
+
+                case 8: eredmeny = FlipSor(0); break;
+                case 9: eredmeny = FlipSor(1); break;
+                case 10: eredmeny = FlipSor(2); break;
+                case 11: eredmeny = FlipSor(3); break;
+
+                case 12: eredmeny = FlipOszlop(0); break;
+                case 13: eredmeny = FlipOszlop(1); break;
+                case 14: eredmeny = FlipOszlop(2); break;
+                case 15: eredmeny = FlipOszlop(3); break;
 
                 default: return false;
             }
+
+            //Console.WriteLine(ToString());
+
+            return eredmeny;
         }
 
-        private bool ForgatSor(int sorSzam) {
-            bool[] sor = BOARD[sorSzam];
-            for (int i = 0; i < 4; i++)
-            {
-                sor[i] = !sor[i];
-            }
+        private bool ForgatSor(int sorSzam)
+        {
+            Csere(sorSzam, 0, sorSzam, 3);
+            Csere(sorSzam, 1, sorSzam, 2);
 
             return ÁllapotE();
         }
 
         private bool ForgatOszlop(int oszlopSzam)
         {
+            Csere(0, oszlopSzam, 3, oszlopSzam);
+            Csere(1, oszlopSzam, 2, oszlopSzam);
+
+            return ÁllapotE();
+        }
+
+        private void Csere(int i1, int j1, int i2, int j2)
+        {
+            bool temp = BOARD[i1][j1];
+            BOARD[i1][j1] = BOARD[i2][j2];
+            BOARD[i2][j2] = temp;
+        }
+
+        private bool FlipSor(int sorSzam) {
             for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    if (j == oszlopSzam) {
-                        BOARD[i][j] = !BOARD[i][j];
-                    }
-                }
+                BOARD[sorSzam][i] = !BOARD[sorSzam][i];
+            }
+
+            return ÁllapotE();
+        }
+
+        private bool FlipOszlop(int oszlopSzam)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                BOARD[i][oszlopSzam] = !BOARD[i][oszlopSzam];
             }
 
             return ÁllapotE();
