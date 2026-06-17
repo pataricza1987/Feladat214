@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,11 @@ namespace Feladat214
                 new[] { PIROS, PIROS, PIROS, PIROS },
                 new[] { PIROS, PIROS, PIROS, PIROS }
             };
+        }
+
+        public KorongÁllapot(bool[][] board)
+        {
+            BOARD = board;
         }
 
         public override bool ÁllapotE()
@@ -106,24 +112,66 @@ namespace Feladat214
 
         public override object Clone()
         {
-            return base.Clone();
+            bool[][] clonedBoard = new bool[4][];
+
+            for (int i = 0; i < 4; i++)
+            {
+                clonedBoard[i] = new bool[4];
+                for (int j = 0; j < 4; j++)
+                {
+                    clonedBoard[i][j] = BOARD[i][j];
+                }
+            }
+
+            return new KorongÁllapot(clonedBoard);
         }
 
         public override bool Equals(object a)
         {
-            return base.Equals(a);
+            KorongÁllapot masik = (KorongÁllapot)a;
+            if (masik == null) return false;
+
+            bool[][] masikBoard = masik.BOARD;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (BOARD[i][j] != masikBoard[i][j]) return false;
+                }
+            }
+
+            return true;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            int hash = 17;
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    hash = hash * 31 + BOARD[i][j].GetHashCode();
+                }
+            }
+
+            return hash;
         }
 
         public override string ToString()
         {
-            return base.ToString();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    char korong = BOARD[i][j] ? 'K' : 'P';
+                    sb.Append(korong);
+                    sb.Append(' ');
+                }
+                sb.AppendLine();
+            }
+            return sb.ToString();
         }
-
-        
     }
 }
