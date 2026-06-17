@@ -1,0 +1,52 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Visual Studio files
+.vs/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+project.assets.json
+project.lock.json
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+
+# Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+.idea/
+
+# VS Code, ha esetleg mégis megjelenik
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
